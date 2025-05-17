@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add">Add</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="not_all_fields_filled_in">Not all fields filled in</string>
+    <string name="save">Save</string>
+    <string name="planned">Planned</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
+    <string name="tasks">Tasks</string>
+    <string name="exit">Exit</string>
+    <string name="continue_without_login">Continue without login</string>
+    <string name="filter">Filter</string>
+    <string name="ok">OK</string>
+    <string name="all">All</string>
+    <string name="enter">Login</string>
+    <string name="categories">Categories</string>
+    <string name="reset">Reset</string>
+    <string name="home">Home</string>
+    <string name="work">Work</string>
+    <string name="login_with">Login with</string>
+    <string name="new_category">New category</string>
+    <string name="begin">Begin</string>
+    <string name="end">End</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="this_week">This week</string>
+    <string name="deadline">Deadline</string>
+    <string name="terms">Terms</string>
+    <string name="at">at</string>
+    <string name="connection_error">Connection error</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="server_error">Server error</string>
+</resources>
