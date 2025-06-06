@@ -39,6 +39,7 @@ import com.tasktracker.data.remote.auth.AuthManager
 import com.tasktracker.data.remote.auth.AuthResult
 import com.tasktracker.domain.entity.User
 import com.tasktracker.ui.Screen
+import com.tasktracker.ui.component.button.DebouncedButton
 import com.tasktracker.viewModel.NavigationEvent
 import com.tasktracker.viewModel.NavigationViewModel
 import com.tasktracker.viewModel.TaskViewModel
@@ -81,11 +82,11 @@ fun AuthScreen(navHostController: NavHostController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 OAuthView({
-                    navigationViewModel.navigate(Screen.Home.route)
+                    navigationViewModel.popUpTo(Screen.Home.route)
                 })
                 Spacer(modifier = Modifier.height(8.dp))
                 AnonymousView({
-                    navigationViewModel.navigate(Screen.Home.route)
+                    navigationViewModel.popUpTo(Screen.Home.route)
                 })
             }
         }
@@ -116,8 +117,9 @@ fun AuthScreen(navHostController: NavHostController) {
         when (navEvent) {
             NavigationEvent.Back -> Unit
             NavigationEvent.Idle -> Unit
-            is NavigationEvent.Navigate -> {
-                navHostController.navigate((navEvent as NavigationEvent.Navigate).route) {
+            is NavigationEvent.Navigate -> {}
+            is NavigationEvent.PopUpTo -> {
+                navHostController.navigate((navEvent as NavigationEvent.PopUpTo).route) {
                     popUpTo(Screen.AuthScreen.route) {
                         inclusive = true
                     }
@@ -260,7 +262,8 @@ private fun OAuthView(navToHomeScreen: () -> Unit) {
         }
     }
 
-    Button(
+    DebouncedButton(
+        debounceTimeMillis = 1000,
         colors = ButtonDefaults.buttonColors(
             contentColor = Color.White,
             containerColor = Color.Black.copy(alpha = 0.7f)

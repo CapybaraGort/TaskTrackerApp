@@ -65,6 +65,7 @@ fun CategoriesRow(
     var isInitialized by rememberSaveable {
         mutableStateOf(false)
     }
+    val currentUser by AuthManager.currentUser.collectAsStateWithLifecycle()
 
     LaunchedEffect(initCategoryId) {
         if (categories.isNotEmpty() && isInitialized == false) {
@@ -168,7 +169,7 @@ fun CategoriesRow(
                         onClick = {
                             scope.launch {
                                 categoryViewModel.addCategory(
-                                    Category(name = categoryName, userId = AuthManager.currentUser.id)
+                                    Category(name = categoryName, userId = currentUser.id)
                                 )
                                 categorySelectViewModel.setCategoryName("")
                             }

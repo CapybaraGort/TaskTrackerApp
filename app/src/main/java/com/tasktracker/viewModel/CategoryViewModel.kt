@@ -1,5 +1,6 @@
 package com.tasktracker.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tasktracker.data.CombinedCategoryRepository
@@ -36,11 +37,12 @@ class CategoryViewModel @Inject constructor(
     }
 
     private suspend fun loadCategories() {
-        repository.getCategories(AuthManager.currentUser.id)
+        repository.getCategories(AuthManager.currentUser.value.id)
             .onStart { _categoryUiState.value = CategoryUiState.Loading }
             .catch { e -> _categoryUiState.value = CategoryUiState.Error(e.message ?: "Unknown error") }
             .collect { list ->
                 _categoryUiState.value = CategoryUiState.Success(list)
+                Log.d("asd", list.toString())
                 _categories.value = list
             }
     }

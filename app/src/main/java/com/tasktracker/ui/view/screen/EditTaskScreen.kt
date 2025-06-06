@@ -102,6 +102,7 @@ fun EditTaskScreen(
     var taskInitialized by rememberSaveable {
         mutableStateOf(false)
     }
+    val currentUser by AuthManager.currentUser.collectAsStateWithLifecycle()
 
     LaunchedEffect(task) {
         if (taskInitialized == false) {
@@ -121,6 +122,7 @@ fun EditTaskScreen(
 
             NavigationEvent.Idle -> Unit
             is NavigationEvent.Navigate -> Unit
+            is NavigationEvent.PopUpTo -> Unit
         }
     }
 
@@ -151,7 +153,7 @@ fun EditTaskScreen(
                             deadline = deadline,
                             isCompleted = task?.isCompleted == true,
                             categoryId = selectedCategoryId ?: -1,
-                            userId = AuthManager.currentUser.id,
+                            userId = currentUser.id,
                             begin = begin
                         )
                         updateTask(tsk)

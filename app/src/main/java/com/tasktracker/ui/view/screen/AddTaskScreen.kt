@@ -91,6 +91,7 @@ fun AddTaskScreen(
     }
 
     val formatter = remember { DateTimeFormatter.ofPattern("dd.MM.yy HH:mm") }
+    val currentUser by AuthManager.currentUser.collectAsStateWithLifecycle()
 
     LaunchedEffect(navEvent) {
         when (navEvent) {
@@ -101,6 +102,7 @@ fun AddTaskScreen(
 
             NavigationEvent.Idle -> Unit
             is NavigationEvent.Navigate -> Unit
+            is NavigationEvent.PopUpTo -> Unit
         }
     }
 
@@ -132,7 +134,7 @@ fun AddTaskScreen(
                             deadline = deadline,
                             isCompleted = false,
                             categoryId = selectedCategoryId ?: -1,
-                            userId = AuthManager.currentUser.id,
+                            userId = currentUser.id,
                             begin = begin
                         )
                         addTask(task)

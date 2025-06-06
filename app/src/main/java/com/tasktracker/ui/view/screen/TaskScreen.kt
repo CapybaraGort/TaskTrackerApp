@@ -121,11 +121,19 @@ fun TaskScreen(
                 navController.navigate((navEvent as NavigationEvent.Navigate).route)
                 navigationViewModel.reset()
             }
+            is NavigationEvent.PopUpTo -> {
+                navController.navigate((navEvent as NavigationEvent.PopUpTo).route) {
+                    popUpTo(Screen.Home.route) {
+                        inclusive = true
+                    }
+                }
+                navigationViewModel.reset()
+            }
         }
     }
 
     SideBar(drawerState, {
-        navigationViewModel.navigate(Screen.AuthScreen.route)
+        navigationViewModel.popUpTo(Screen.AuthScreen.route)
     }) {
         Scaffold(
             modifier = modifier.windowInsetsPadding(WindowInsets.systemBars),
@@ -384,6 +392,7 @@ private fun SideBar(
     val sideBarViewModel: SideBarViewModel = hiltViewModel()
     val currentAuthType by sideBarViewModel.authType.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
+    val currentUser by AuthManager.currentUser.collectAsStateWithLifecycle()
 
     ModalNavigationDrawer(
         modifier = Modifier
@@ -393,6 +402,7 @@ private fun SideBar(
         drawerContent = {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxHeight()
                     .width(DrawerDefaults.MaximumDrawerWidth / 1.5f)
@@ -402,7 +412,15 @@ private fun SideBar(
                     )
                     .padding(horizontal = 16.dp)
             ) {
-                Button(
+                Column{
+                    Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium)
+                    Text(
+                        "${stringResource(R.string.user)}: ${currentUser.name}",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+                DebouncedButton(
+                    modifier = Modifier.padding(bottom = 12.dp),
                     onClick = {
                         scope.launch {
                             sideBarViewModel.authManager.logout(AuthManager.currentAuthType.value)

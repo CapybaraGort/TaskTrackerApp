@@ -24,7 +24,7 @@ fun DebouncedButton(
     debounceTimeMillis: Long = 400L,
     onClick: () -> Unit,
     shape: Shape = ButtonDefaults.shape,
-    colors: ButtonColors = ButtonDefaults.outlinedButtonColors(),
+    colors: ButtonColors = ButtonDefaults.buttonColors(),
     content: @Composable RowScope.() -> Unit
 ) {
     var isClickable by remember { mutableStateOf(true) }

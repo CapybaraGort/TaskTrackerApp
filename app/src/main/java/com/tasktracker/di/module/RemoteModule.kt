@@ -47,7 +47,7 @@ class ErrorHandlingInterceptor : Interceptor {
 @InstallIn(SingletonComponent::class)
 object RemoteModule {
 
-    private const val URL = "..."
+    private const val URL = ""
 
     val moshi: Moshi = Moshi.Builder()
         .add(LocalDateTimeAdapter())

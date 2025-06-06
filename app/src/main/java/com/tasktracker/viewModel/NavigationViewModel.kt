@@ -14,6 +14,9 @@ class NavigationViewModel @Inject constructor() : ViewModel() {
     fun navigate(route: String) {
         _navigation.value = NavigationEvent.Navigate(route)
     }
+    fun popUpTo(route: String) {
+        _navigation.value = NavigationEvent.PopUpTo(route)
+    }
 
     fun goBack() {
         _navigation.value = NavigationEvent.Back
@@ -27,6 +30,7 @@ class NavigationViewModel @Inject constructor() : ViewModel() {
 
 sealed class NavigationEvent {
     data class Navigate(val route: String) : NavigationEvent()
+    data class PopUpTo(val route: String) : NavigationEvent()
     object Back : NavigationEvent()
     object Idle : NavigationEvent()
 }

@@ -38,7 +38,7 @@ class TaskViewModel @Inject constructor(
     }
 
     private suspend fun loadTasks() {
-        combinedTaskRepository.getTasks(AuthManager.currentUser.id)
+        combinedTaskRepository.getTasks(AuthManager.currentUser.value.id)
             .onStart { taskUiState.value = TaskUiState.Loading }
             .catch { e -> taskUiState.value = TaskUiState.Error(e.message ?: "Unknown error") }
             .collect { taskList ->

@@ -5,20 +5,21 @@ import com.tasktracker.data.remote.auth.provider.AuthProvider
 import com.tasktracker.domain.entity.User
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class AuthManager(
     private val providers: Map<AuthType, @JvmSuppressWildcards AuthProvider<*>>,
     private val securePrefsManager: SecurePrefsManager
 ) {
     companion object {
-        var currentUser: User = User(name = "Anon", email = "")
-            private set
+        private val _currentUser = MutableStateFlow<User>(User(name = "Anon", email = ""))
+        val currentUser get() = _currentUser.asStateFlow()
 
         private val _currentAuthType = MutableStateFlow<AuthType>(AuthType.Anonymous)
         val currentAuthType: StateFlow<AuthType> get() = _currentAuthType
 
         fun setCurrentUser(user: User) {
-            currentUser = user
+            _currentUser.value = user
         }
     }
 
@@ -46,6 +47,7 @@ class AuthManager(
 
         provider.logout()
         securePrefsManager.remove(authType.keyToken)
+        setCurrentUser(User(name = "Anon", email = ""))
     }
 
     suspend fun getToken(keyToken: KeyToken): String? {

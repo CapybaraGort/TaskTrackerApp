@@ -63,14 +63,15 @@ class YandexAuthViewModel @Inject constructor (
                     .header("Authorization", "OAuth $token")
                     .build()
 
-                val response = client.newCall(request).execute()
-                if (response.isSuccessful) {
-                    val responseBody = response.body?.string() ?: return@withContext Result.failure(
-                        Exception("Пустой ответ")
-                    )
-                    Result.success(JSONObject(responseBody))
-                } else {
-                    Result.failure(Exception("Ошибка запроса: HTTP ${response.code}"))
+                client.newCall(request).execute().use { response ->
+                    if (response.isSuccessful) {
+                        val responseBody = response.body?.string() ?: return@withContext Result.failure(
+                            Exception("Пустой ответ")
+                        )
+                        Result.success(JSONObject(responseBody))
+                    } else {
+                        Result.failure(Exception("Ошибка запроса: HTTP ${response.code}"))
+                    }
                 }
             } catch (e: Exception) {
                 Result.failure(e)
