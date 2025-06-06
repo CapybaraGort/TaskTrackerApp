@@ -125,7 +125,7 @@ fun TaskView(
                         stringResource(
                             R.string.at
                         )
-                    } ${task.deadline.format(timeFormatter)}",
+                    } ${task.begin.format(timeFormatter)}",
                     style = MaterialTheme.typography.bodySmall
                 )
                 Text(

@@ -33,4 +33,6 @@
     <string name="unknown_error">Unknown error</string>
     <string name="server_error">Server error</string>
     <string name="user">User</string>
+    <string name="the_task_has_begun">The task has begun</string>
+    <string name="task_timed_out">Task timed out</string>
 </resources>

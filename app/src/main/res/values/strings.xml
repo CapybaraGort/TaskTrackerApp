@@ -33,4 +33,6 @@
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="server_error">Серверная ошибка</string>
     <string name="user">Пользователь</string>
+    <string name="the_task_has_begun">Началась задача</string>
+    <string name="task_timed_out">Истекло время задачи</string>
 </resources>

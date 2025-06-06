@@ -21,11 +21,12 @@ class NotificationWorker(
     override suspend fun doWork(): Result {
         val title = inputData.getString("title") ?: ""
         val description = inputData.getString("description") ?: ""
+        val isCompleted = inputData.getBoolean("is_completed", false)
 
         if(ActivityCompat.checkSelfPermission(
             applicationContext, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
         ) {
-            sendNotification(title, description)
+            if(!isCompleted) sendNotification(title, description)
         }
 
         return Result.success()

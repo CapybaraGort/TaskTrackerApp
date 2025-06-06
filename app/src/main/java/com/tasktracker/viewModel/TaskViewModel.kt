@@ -54,7 +54,7 @@ class TaskViewModel @Inject constructor(
             fetchTasks {
                 _tasks.value = _tasks.value + newTask
             }
-            scheduleTaskNotification(application, newTask, newTask.begin)
+            scheduleTaskNotification(application, newTask, newTask.begin, isDateTimeBegin = true)
             scheduleTaskNotification(application, newTask, newTask.deadline)
         }
     }
@@ -80,8 +80,8 @@ class TaskViewModel @Inject constructor(
                     if (it.id == updTask.id) updTask else it
                 }
             }
-            cancelTaskNotification(application, task)
-            scheduleTaskNotification(application, updTask, updTask.begin)
+            cancelTaskNotification(application, updTask)
+            scheduleTaskNotification(application, updTask, updTask.begin, isDateTimeBegin = true)
             scheduleTaskNotification(application, updTask, updTask.deadline)
         }
     }
